@@ -1,5 +1,8 @@
 public class IncomeTax extends EventSquare{
 
+    IncomeTax(){
+        super("Income Tax", "🏦");
+    }
     @Override
     void performEvent(Player player) {
         // TODO Auto-generated method stub

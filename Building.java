@@ -4,12 +4,21 @@ public class Building extends Square{
     Player owner;
     String alias;
 
-    Building(String name, int price, String alias){
+    Building(String name, int price){
 
-        super(name, "");
+        super(name, "🏠");
         this.price = price;
         this.name = name;
-        this.alias = alias;
+       
+        
+    }
+    
+    Building(String name, int price, String icon){
+
+        super(name, icon);
+        this.price = price;
+        this.name = name;
+       
         
     }
 

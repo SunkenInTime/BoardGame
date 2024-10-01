@@ -3,24 +3,24 @@ public class Grid{
    
     Square[] locationGrid = {
     new Square("Start", "➡"),
-    new Building("Mid Avenue", 200, "Mid Ave"),
+    new Building("Circuit Avenue", 200, "⚡"),
     new Chest(),
-    new Building("Skibidi Avenue",200, "Skib Ave"),
-    new Square("Just Visiting", ""),
+    new Building("Skibidi Avenue",200, "🚽"),
+    new Square("Just Visiting", "✈️"),
     
     new Chance(),
-    new Building("Le Hotel", 200, "Luc Ave"),
-    new Building("Sunny Boardwalk", 200, "Sun Ave"),
+    new Building("Le Hotel", 200, "🏨"),
+    new Building("Sunny Boardwalk", 200, "🏖️"),
 
-    new Square("Free Parking", ""),
+    new Square("Free Parking", "🅿️"),
     new IncomeTax(),
-    new Building("NYC Street", 0, "NYC St."),
+    new Building("NYC Street", 0 ,"🌆"),
     new Chance(),
     new GoToJail(),
 
-    new Building("Vermont Avenue", 0, "Vmt Ave"),
+    new Building("Elden Avenue", 0, "🧓"),
     new IncomeTax(),
-    new Building("Karis Park", 0, "Ks Park")
+    new Building("Karis Park", 0, "🏞️")
     
 };
 
@@ -28,7 +28,18 @@ public class Grid{
     
     @Override
     public String toString (){
-        return null;
+        String result = "";
+        int counter = 0;
+        for(int i = 0; i < locationGrid.length; i++){
+            
+           result += locationGrid[i].icon;
+           counter++;
+           if (counter >= 5){
+            result += "\n";
+            counter = 0;
+           }
+        }
+        return result;
 
     }
 }

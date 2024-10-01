@@ -2,7 +2,9 @@ public class Chest extends EventSquare{
 
 
 
-
+    Chest(){
+        super("Chest", "🎁");
+    }
 
     @Override
     void performEvent(Player player) {
