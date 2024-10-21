@@ -1,7 +1,7 @@
 public class IncomeTax extends EventSquare{
 
-    IncomeTax(){
-        super("Income Tax", "🏦");
+    IncomeTax(int position){
+        super("Income Tax", "🏦", position);
     }
     @Override
     void performEvent(Player player) {

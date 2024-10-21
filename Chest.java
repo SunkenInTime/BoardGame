@@ -2,8 +2,8 @@ public class Chest extends EventSquare{
 
 
 
-    Chest(){
-        super("Chest", "🎁");
+    Chest(int position){
+        super("Chest", "🎁", position);
     }
 
     @Override

@@ -1,7 +1,7 @@
 public class Chance extends EventSquare{
 
-    Chance(){
-        super("Chance", "❓");
+    Chance(int position){
+        super("Chance", "❓", position);
     }
     @Override
     void performEvent(Player player) {

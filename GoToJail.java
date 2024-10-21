@@ -1,7 +1,7 @@
 public class GoToJail extends EventSquare{
 
-    GoToJail() {
-        super("Go to jail", "👮");
+    GoToJail(int position) {
+        super("Go to jail", "👮", position);
         
     }
     @Override
