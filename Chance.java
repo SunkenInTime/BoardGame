@@ -4,9 +4,9 @@ public class Chance extends EventSquare{
         super("Chance", "❓", position);
     }
     @Override
-    void performEvent(Player player) {
+    Player performEvent(Player player, Grid grid) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'performEvent'");
     }
     
-}
+} 

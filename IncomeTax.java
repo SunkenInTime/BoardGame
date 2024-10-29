@@ -4,7 +4,8 @@ public class IncomeTax extends EventSquare{
         super("Income Tax", "🏦", position);
     }
     @Override
-    void performEvent(Player player) {
+    Player
+     performEvent(Player player, Grid grid) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'performEvent'");
     }

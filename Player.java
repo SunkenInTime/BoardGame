@@ -3,6 +3,7 @@ public class Player{
     String name;
     int money;
     int position;
+    
 
     Player(String name, String icon){
         this.name = name;
@@ -15,4 +16,18 @@ public class Player{
     int getPosition(){
         return position;
     }
+    void addPosition(int increment){
+        position += increment;
+
+    }
+
+    void payMoney(int money){
+        this.money -= money;
+    }
+    void addMoney(int money){
+        this.money += money;
+    }
+
+    
+    
 }

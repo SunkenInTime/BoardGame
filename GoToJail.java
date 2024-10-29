@@ -5,9 +5,10 @@ public class GoToJail extends EventSquare{
         
     }
     @Override
-    void performEvent(Player player) {
+    Player performEvent(Player player, Grid grid) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'performEvent'");
+
     }
     
 }

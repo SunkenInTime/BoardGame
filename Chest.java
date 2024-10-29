@@ -7,7 +7,7 @@ public class Chest extends EventSquare{
     }
 
     @Override
-    void performEvent(Player player) {
+    Player performEvent(Player player, Grid grid) {
         
         throw new UnsupportedOperationException("Unimplemented method 'performEvent'");
     }
