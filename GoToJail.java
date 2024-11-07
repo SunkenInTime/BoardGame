@@ -1,3 +1,4 @@
+import java.util.Scanner;
 public class GoToJail extends EventSquare{
 
     GoToJail(int position) {
@@ -5,7 +6,7 @@ public class GoToJail extends EventSquare{
         
     }
     @Override
-    Player performEvent(Player player, Grid grid) {
+    Player performEvent(Player player, Grid grid, Scanner myScanner) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'performEvent'");
 

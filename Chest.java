@@ -1,3 +1,4 @@
+import java.util.Scanner;
 public class Chest extends EventSquare{
 
 
@@ -7,7 +8,7 @@ public class Chest extends EventSquare{
     }
 
     @Override
-    Player performEvent(Player player, Grid grid) {
+    Player performEvent(Player player, Grid grid, Scanner myScanner) {
         
         throw new UnsupportedOperationException("Unimplemented method 'performEvent'");
     }

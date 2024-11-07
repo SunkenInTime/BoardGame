@@ -1,3 +1,4 @@
+import java.util.Scanner;
 public class IncomeTax extends EventSquare{
 
     IncomeTax(int position){
@@ -5,7 +6,7 @@ public class IncomeTax extends EventSquare{
     }
     @Override
     Player
-     performEvent(Player player, Grid grid) {
+     performEvent(Player player, Grid grid, Scanner myScanner) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'performEvent'");
     }

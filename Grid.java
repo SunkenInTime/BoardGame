@@ -46,67 +46,132 @@ public class Grid {
             }
         
      };
-         
-
+    
+     Grid(boolean isDebug){
+        this.isDebug = isDebug;
+     }
+    
+    Scanner myScanner = new Scanner(System.in);
     boolean isFinished = false;
+    boolean isDebug;
     ArrayList<Player> listOfPlayers = new ArrayList<Player>();
-
+    
     int minPlayers = 2;
     int maxPlayers = 4;
     ArrayList<String> playerIcons = new ArrayList<>(Arrays.asList("🐔", "😼", "🦅", "🤑"));
 
+
     void startGame() {
         // Ask for amount of players 4 max
 
-        Scanner myScanner = new Scanner(System.in);
+        
 
         System.out.println("Welcome to Monopoly Lite");
         
-        
-        addPlayers(myScanner);
+        if(isDebug){
+            addDebugPlayers();
+        }else{
+            addPlayers();
 
+            
+        }
+        
+        gameLoop();
+        
         myScanner.close();
 
     }
 
     void gameLoop() {
 
+        
         while (isFinished == false) {
 
 
-            // for(int i = 0; i < listOfPlayers.size(); i++){
-            //     Player player = listOfPlayers.get(i);
-            //     makeTurn(player);
+
+            for(int i = 0; i < listOfPlayers.size(); i++){
+                Player player = listOfPlayers.get(i);
+                makeTurn(player);
+                displayInfo(player);
+
+
+
+                print("Press enter to move to next player");
+                myScanner.nextLine();
+                
                 
 
-            // }
+            }
             
         }
+
+        
     }
 
-    void displayInfo() {
+    void displayInfo(Player player) {
         // Display the current turn
         // Display players money
         // Display status
         // Display other plays positions
+
+        print("\nName: " + player.name + " " + player.icon);
+        print("Money: " + player.money);
+        print("Current Tile: " + player.position );
+        print("Status: " + ((player.sentenceLength > 0) ? "In Jail" : "Free") );
+        print("Properties owned: ");
+
+        
+        for(Square[] tileList : locationGrid){
+            for(Square tile : tileList){
+                
+                if(tile.name.equals(player.name)){
+
+                };
+            }
+        }
     }
 
     Player makeTurn(Player player){
         
         Player gamePlayer = player;
+        print(player.name + " " + player.icon + " is rolling the dice");
         int diceNum = rollDice();
+        print(player.name + " " + player.icon + " rolled " + diceNum);
         player.addPosition(diceNum);
+        
+
+        while (!checkIfSquareEmpty(player)) {
+            player.addPosition(-1);
+            print("A player is on that square, you have been moved back once");
+        }
+        print(toString());
+        
         int[] squareIndex = linearTo2D(player.getPosition());
         Square square = locationGrid[squareIndex[0]][squareIndex[1]];
         
+        
         if(square instanceof EventSquare){
-            gamePlayer = ((EventSquare)square).performEvent(player, this);
+            try{
+            gamePlayer = ((EventSquare)square).performEvent(player, this, myScanner);
+            } catch(UnsupportedOperationException e){
+                print("Feature isn't available yet");
+            }
         }
         
         return gamePlayer;
         
     }
 
+    boolean checkIfSquareEmpty(Player myPlayer){
+
+
+        for(Player player : listOfPlayers){
+            if(player.position == myPlayer.position && !player.name.equals(myPlayer.name)){
+                return false;
+            }
+        }
+        return true;
+    }
     void locationGridTest(){
 
         for(int i = 0; i < locationGrid.length; i++){
@@ -119,7 +184,7 @@ public class Grid {
                    int[] location = linearTo2D(square.position);
 
                    if(location[0] == i && location[1] == k){
-                    System.out.println("Number " + square.position+ " Works");
+                    System.out.println("Number " + square.position+ " W orks");
                    }else{
                     System.out.println("Number " + square.position+ " No Works here is the returned location by the function" + Arrays.toString(location));
                    }
@@ -127,7 +192,9 @@ public class Grid {
             }
         }
     }
+
     // The code is meant to turn the outer layer of 5x5 grid into a numbered list one being 0,0 and then the last being 1,0
+
     int[] linearTo2D(int num){
         int[] position = {0,0};
         if(num <= 5){
@@ -154,9 +221,24 @@ public class Grid {
 
     int rollDice(){
         Random random = new Random();
-        int result = 0;
-        result = random.nextInt(5);
+        int result;
 
+        for(int i = 0; i < 20; i++) {
+            System.out.print("\r" + (i % 2 == 0 ? "/" : "\\"));
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            
+        }
+        print(" \n");
+
+        
+        result = random.nextInt(4) + 1;
+
+        
         return result;
     }
 
@@ -171,7 +253,24 @@ public class Grid {
         }
         System.out.println("Player does not exist");
     }
-    void addPlayers(Scanner myScanner) {
+
+    void addDebugPlayers(){
+        String[] debugNames = {
+            "Bob",
+            "Rachel",
+            "Luc",
+            "Sristi"
+        };
+
+        for(String playerName : debugNames){
+            String icon =   getPlayerIcon();         
+            Player tempPlayer = new Player(playerName, icon);
+
+            listOfPlayers.add(tempPlayer);
+        }
+
+    }
+    void addPlayers() {
         int playerCount;
 
         // Grabbing Player Count
@@ -260,6 +359,10 @@ public class Grid {
         
         return result;
 
+    }
+
+    void print(String input){
+        System.out.println(input);
     }
 
     // I have to figure out how to translate player positional data into the vidual interface

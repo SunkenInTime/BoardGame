@@ -3,8 +3,8 @@ import java.util.Scanner;
 public class Building extends EventSquare{
 
     int price;
-    String owner;
-    String alias;
+    String owner = "";
+   
     int rent;
 
 
@@ -18,14 +18,11 @@ public class Building extends EventSquare{
         
     }
 
-//Less that 100 sell
-// Sell
-// Pay
-// Buy
+
     @Override
-    Player performEvent(Player player, Grid grid) {
+    Player performEvent(Player player, Grid grid, Scanner myScanner) {
         Player tempPlayer = player;
-        Scanner myScanner = new Scanner(System.in);
+        
 
 
         // buying
@@ -35,14 +32,14 @@ public class Building extends EventSquare{
             if(response.equalsIgnoreCase("y")){
 
                 if(tempPlayer.money < price){
-                    myScanner.close();
+                   
                     return tempPlayer;
                 }
 
                 owner = tempPlayer.name;
                 tempPlayer.payMoney(price);
 
-                myScanner.close();
+                
                 return tempPlayer;
             } 
         }
@@ -55,7 +52,7 @@ public class Building extends EventSquare{
             if(tempPlayer.money < rent){
                 tempPlayer.addPosition(-1);
                 System.out.println("Yer dirt poor");
-                myScanner.close();
+                
                 return tempPlayer;
                 //TODO: re-iterate again
             }
@@ -75,12 +72,12 @@ public class Building extends EventSquare{
                 
                 tempPlayer.addMoney(price - (int)(price * .2));
             } 
-            myScanner.close();
+            
             return tempPlayer;           
         }
 
         
-        myScanner.close();
+       
         return tempPlayer;
     }
 
