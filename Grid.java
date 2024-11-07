@@ -96,7 +96,7 @@ public class Grid {
 
 
 
-                print("Press enter to move to next player");
+                ColorPrinter.print("Press enter to move to next player", ColorPrinter.MessageType.SYSTEM);
                 myScanner.nextLine();
                 
                 
@@ -113,54 +113,76 @@ public class Grid {
         // Display players money
         // Display status
         // Display other plays positions
+        int[] squareIndex = linearTo2D(player.getPosition());
+        Square square = locationGrid[squareIndex[0]][squareIndex[1]];
 
-        print("\nName: " + player.name + " " + player.icon);
-        print("Money: " + player.money);
-        print("Current Tile: " + player.position );
-        print("Status: " + ((player.sentenceLength > 0) ? "In Jail" : "Free") );
-        print("Properties owned: ");
-
-        
+        String listOfProperties = "";
         for(Square[] tileList : locationGrid){
             for(Square tile : tileList){
                 
-                if(tile.name.equals(player.name)){
+                if(tile instanceof Building){
 
-                };
+                    if(((Building) tile).owner.equals(player.name)){
+                        listOfProperties += tile.name + " " + tile.icon + ", " + tile.position + ", ";
+                    }
+                }
             }
         }
+        if(!listOfProperties.isEmpty()){
+            listOfProperties = listOfProperties.substring(0, listOfProperties.length() - 2);
+            
+        }else{
+            listOfProperties = "none :(";
+        }
+
+        ColorPrinter.print("\nName: " + player.name + " " + player.icon, ColorPrinter.MessageType.PLAYER);
+        ColorPrinter.print("Money: " + player.money, ColorPrinter.MessageType.PLAYER);
+        ColorPrinter.print("Current Tile: " + square.name + " " + square.icon + ", " + player.position, ColorPrinter.MessageType.PLAYER );
+        ColorPrinter.print("Status: " + ((player.sentenceLength > 0) ? "In Jail" : "Free"), ColorPrinter.MessageType.PLAYER );
+        ColorPrinter.print("Properties owned: " + listOfProperties, ColorPrinter.MessageType.PLAYER );
+
+        //TODO: Implement properties
+        
     }
 
     Player makeTurn(Player player){
         
         Player gamePlayer = player;
-        print(player.name + " " + player.icon + " is rolling the dice");
+        String playerDisplayName = player.name + " " + player.icon;
+        ColorPrinter.print(playerDisplayName + " is rolling the dice", ColorPrinter.MessageType.DICE);
         int diceNum = rollDice();
-        print(player.name + " " + player.icon + " rolled " + diceNum);
+        ColorPrinter.print(playerDisplayName + " rolled " + diceNum, ColorPrinter.MessageType.DICE);
         player.addPosition(diceNum);
         
+        GameTimer.quickPause();
 
         while (!checkIfSquareEmpty(player)) {
             player.addPosition(-1);
-            print("A player is on that square, you have been moved back once");
+            GameTimer.quickPause();
+            ColorPrinter.print("A player is on that square, you have been moved back once", ColorPrinter.MessageType.SYSTEM);
         }
-        print(toString());
+        
         
         int[] squareIndex = linearTo2D(player.getPosition());
         Square square = locationGrid[squareIndex[0]][squareIndex[1]];
         
-        
+        ColorPrinter.print(playerDisplayName + "landed on " + square.name + " " + square.icon, ColorPrinter.MessageType.PLAYER);
+        GameTimer.quickPause();
+        ColorPrinter.print("\n"+toString());
+
         if(square instanceof EventSquare){
             try{
             gamePlayer = ((EventSquare)square).performEvent(player, this, myScanner);
             } catch(UnsupportedOperationException e){
-                print("Feature isn't available yet");
+                ColorPrinter.print("Feature isn't available yet", ColorPrinter.MessageType.WARNING);
             }
         }
         
         return gamePlayer;
         
     }
+
+    
 
     boolean checkIfSquareEmpty(Player myPlayer){
 
@@ -172,26 +194,29 @@ public class Grid {
         }
         return true;
     }
-    void locationGridTest(){
+    
+    
 
-        for(int i = 0; i < locationGrid.length; i++){
+    // void locationGridTest(){
 
-            for(int k = 0; k < locationGrid[i].length; k++){
+    //     for(int i = 0; i < locationGrid.length; i++){
+
+    //         for(int k = 0; k < locationGrid[i].length; k++){
                 
-                Square square = locationGrid[i][k];
-                if(square.position > 0){
+    //             Square square = locationGrid[i][k];
+    //             if(square.position > 0){
                     
-                   int[] location = linearTo2D(square.position);
+    //                int[] location = linearTo2D(square.position);
 
-                   if(location[0] == i && location[1] == k){
-                    System.out.println("Number " + square.position+ " W orks");
-                   }else{
-                    System.out.println("Number " + square.position+ " No Works here is the returned location by the function" + Arrays.toString(location));
-                   }
-                }
-            }
-        }
-    }
+    //                if(location[0] == i && location[1] == k){
+    //                 System.out.println("Number " + square.position+ " W orks");
+    //                }else{
+    //                 System.out.println("Number " + square.position+ " No Works here is the returned location by the function" + Arrays.toString(location));
+    //                }
+    //             }
+    //         }
+    //     }
+    // }
 
     // The code is meant to turn the outer layer of 5x5 grid into a numbered list one being 0,0 and then the last being 1,0
 
@@ -207,9 +232,6 @@ public class Grid {
         }else if ( num < 14){
             position [0] = 4;
             position [1] = 13-num;
-            // 4, 3
-            // have 5-2 (15 - num )
-            //linear 10
         }else{
             position[0] = 17 - num ;
             position[1] = 0;
@@ -233,7 +255,7 @@ public class Grid {
 
             
         }
-        print(" \n");
+        ColorPrinter.print("");
 
         
         result = random.nextInt(4) + 1;
@@ -247,7 +269,7 @@ public class Grid {
         for(int i = 0; i < listOfPlayers.size(); i++){
             if(listOfPlayers.get(i).name.equals(recipient)){
                 listOfPlayers.get(i).addMoney(amt);
-                System.out.println(payerName + " has paid " + amt + " to " + recipient);
+                ColorPrinter.print(payerName + " has paid " + amt + " to " + recipient, ColorPrinter.MessageType.MONEY);
                 return;
             }
         }
@@ -361,9 +383,7 @@ public class Grid {
 
     }
 
-    void print(String input){
-        System.out.println(input);
-    }
+    
 
     // I have to figure out how to translate player positional data into the vidual interface
     // if there is /5
