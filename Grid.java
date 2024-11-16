@@ -278,7 +278,7 @@ public class Grid {
 
         for(String playerName : debugNames){
             String icon =   getPlayerIcon();         
-            Player tempPlayer = new Player(playerName, icon);
+            Player tempPlayer = new Player(playerName, icon,myScanner);
 
             listOfPlayers.add(tempPlayer);
         }
@@ -317,7 +317,7 @@ public class Grid {
                 playerName = myScanner.nextLine().trim();
             }
             icon = getPlayerIcon();
-            Player tempPlayer = new Player(playerName, icon);
+            Player tempPlayer = new Player(playerName, icon, myScanner);
 
             listOfPlayers.add(tempPlayer);
 
@@ -339,7 +339,7 @@ public class Grid {
 
   
     Player returnPlayerInPosition(int position){
-        Player result = new Player("null", "" );
+        Player result = new Player("null", "" ,myScanner);
         for(Player player : listOfPlayers){
             if(player.getPosition() == position){
                 return player;

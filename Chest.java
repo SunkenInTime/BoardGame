@@ -6,7 +6,7 @@ public class Chest extends EventSquare{
     Chest(int position){
         super("Chest", "🎁", position);
     }
-
+    
     interface CardAction{
 
         Player execute(Player player);

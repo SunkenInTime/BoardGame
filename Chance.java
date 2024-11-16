@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.Random;
 public class Chance extends EventSquare{
 
     Chance(int position){
@@ -16,59 +17,99 @@ public class Chance extends EventSquare{
     
        
 
-        BANK_ERROR(
-            "Bank error in your favor. Collect $200.",
+        CRYPTO_INVESTMENT(
+            "You invested in a new cryptocurrency that definitely isn't a scam. Roll dice: Even you double your bet, Odd you lose it all.", 
             player -> {
+                Random rand = new Random();
+                GameTimer.loading(2);
+                int roll = rand.nextInt(6) + 1;
+                if(roll % 2 == 0) {
+                    
+                    ColorPrinter.print("Wow... I'm suprised that worked. Good on ya! You earned $" + player.money * 2);
+                    player.addMoney(player.money * 2);
+                    return player;
+                } else {
+                    ColorPrinter.print("Your money would've been better spent on valorant skins. You lost it all");
+                    player.addMoney(-player.money);
+                    return player;
+                }
+            }
+        ),
+
+        VIRAL_VIDEO(
+            "Your cat video went viral! Collect $150 in ad revenue.",
+            player -> {
+                player.addMoney(150);
+                return player;
+            }
+        ),
+
+        UBER_SURGE(
+            "Uber surge pricing kicks in. Pay double fare: -$100",
+            player -> {
+                player.addMoney(-100);
+                return player;
+            }
+        ),
+
+        STARTUP_INVESTOR(
+            "A startup you invested in got acquired! Advance to Start and collect $200",
+            player -> {
+                
+                player.setPlayerPosition(1); // Assuming 1 is Start
                 player.addMoney(200);
                 return player;
             }
         ),
 
+        SOCIAL_MEDIA_CANCEL(
+            "You got cancelled on social media. Move back 3 spaces.",
+            player -> {
+                player.addPosition(-3);
+                return player;
+            }
+        ),
 
-        DOCTOR_FEES(
-            "Doctor's fee. Pay $50",
+        REMOTE_WORK(
+            "Your company went fully remote! Save on commute - collect $50",
+            player -> {
+                player.addMoney(50);
+                return player;
+            }
+        ),
+
+        PHONE_REPAIR(
+            "Cracked phone screen needs repair. Pay $75",
+            player -> {
+                player.addMoney(-75);
+                return player;
+            }
+        ),
+
+        MEME_STOCK(
+            "Your meme stock investment paid off! Collect $250",
+            player -> {
+                player.addMoney(250);
+                return player;
+            }
+        ),
+
+        SUBSCRIPTION_SERVICES(
+            "Forgot to cancel free trials. Pay $50",
             player -> {
                 player.addMoney(-50);
                 return player;
             }
         ),
 
-        TAX_WRITEOFF(
-            "You bought a Cybertruck and earn a tax right off. Collect $100",
-            player ->{
-                player.addMoney(100);
-                return player;
-            }
-        ),
-
-        PAY_TUITION(
-            "You decided to go to college. Pay $200",
+        TIKTOK_DANCE(
+            "Your TikTok dance challenge went viral! Move to any property on the board.",
             player -> {
-                player.addMoney(-200);
-                return player;
-            }
-        ),
+                ColorPrinter.print("Choose a position to move to (1-16):", ColorPrinter.MessageType.SYSTEM);
+                player.customPlayerPosition();
 
-        LIFE_INSURANCE_FRAUD(
-            "You defrauded the IRS and actually got away with it. Collect $200",
-            player -> {
-                player.addMoney(200);
-                return player;
-            }
-        ),
-
-        INHHERITANCE(
-            "Your father has a serious gambling addiction and he bet your lives saving on Jake Paul. You lose all your money.",
-            player -> {
-                player.addMoney(-player.money);
-                return player;
-            }
-        ),
-
-        GO_TO_JAIL(
-            "Go to Jail. Go directly to Jail.",
-            player -> {
-                player.addSentence(1);
+                
+                // player.setPosition(newPos);
                 return player;
             }
         );
