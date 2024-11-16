@@ -37,7 +37,7 @@ public class Building extends EventSquare{
                 }
 
                 owner = tempPlayer.name;
-                tempPlayer.payMoney(price);
+                tempPlayer.addMoney(-price);
 
                 
                 return tempPlayer;
@@ -56,7 +56,7 @@ public class Building extends EventSquare{
                 return tempPlayer;
                 //TODO: re-iterate again
             }
-            tempPlayer.payMoney(rent);
+            tempPlayer.addMoney(-rent);
             grid.handlePlayerPayments(tempPlayer.name, name, rent);
         }
 
