@@ -92,6 +92,7 @@ public class Grid {
             for(int i = 0; i < listOfPlayers.size(); i++){
                 Player player = listOfPlayers.get(i);
                 makeTurn(player);
+                GameTimer.quickPause();
                 displayInfo(player);
 
 
@@ -141,7 +142,7 @@ public class Grid {
         ColorPrinter.print("Status: " + ((player.sentenceLength > 0) ? "In Jail" : "Free"), ColorPrinter.MessageType.PLAYER );
         ColorPrinter.print("Properties owned: " + listOfProperties, ColorPrinter.MessageType.PLAYER );
 
-        //TODO: Implement properties
+        
         
     }
 
@@ -245,16 +246,7 @@ public class Grid {
         Random random = new Random();
         int result;
 
-        for(int i = 0; i < 20; i++) {
-            System.out.print("\r" + (i % 2 == 0 ? "/" : "\\"));
-            try {
-                Thread.sleep(50);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            
-        }
+        GameTimer.loading(2);
         ColorPrinter.print("");
 
         

@@ -27,7 +27,7 @@ public class Building extends EventSquare{
 
         // buying
         if(owner.isEmpty()){
-            System.out.println("Do you wish to buy this building? Y or N");
+            ColorPrinter.print("Do you wish to buy this building? Y or N", ColorPrinter.MessageType.SYSTEM);
             String response = myScanner.nextLine();
             if(response.equalsIgnoreCase("y")){
 
@@ -47,11 +47,11 @@ public class Building extends EventSquare{
 
         // Paying rent
         if (!owner.isEmpty() && !tempPlayer.name.equals(owner)) {
-            System.out.println("You landed on " + name + " owned by " + owner);
-            System.out.println("Paying rent of " + rent + " to " + owner);
+            ColorPrinter.print("You landed on " + name + " owned by " + owner, ColorPrinter.MessageType.SYSTEM);
+            ColorPrinter.print("Paying rent of " + rent + " to " + owner, ColorPrinter.MessageType.MONEY);
             if(tempPlayer.money < rent){
                 tempPlayer.addPosition(-1);
-                System.out.println("Yer dirt poor");
+                ColorPrinter.print("Yer dirt poor", ColorPrinter.MessageType.WARNING);
                 
                 return tempPlayer;
                 //TODO: re-iterate again
@@ -65,7 +65,7 @@ public class Building extends EventSquare{
         if(tempPlayer.name.equals(owner)){
             
             // give option to sell
-            System.out.println("Do you wish to sell this house? Y or N");
+            ColorPrinter.print("Do you wish to sell this house? Y or N", ColorPrinter.MessageType.SYSTEM);
             String response = myScanner.nextLine();
             if(response.equalsIgnoreCase("y")){
                 owner = "";

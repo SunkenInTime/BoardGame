@@ -9,7 +9,7 @@ public class Player{
     Player(String name, String icon){
         this.name = name;
         this.icon = icon;
-        this.money = 0;
+        this.money = 500;
         position = 1;
     }
 
@@ -35,13 +35,14 @@ public class Player{
 
     }
 
-    void payMoney(int money){
-        this.money -= money;
-    }
+    
     void addMoney(int money){
         this.money += money;
     }
 
+    void addSentence(int length){
+        this.sentenceLength += length;
+    }
     
     
 }
