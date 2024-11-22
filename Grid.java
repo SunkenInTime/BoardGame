@@ -91,6 +91,8 @@ public class Grid {
 
             for(int i = 0; i < listOfPlayers.size(); i++){
                 Player player = listOfPlayers.get(i);
+                displayInfo(player);
+                GameTimer.quickPause();
                 makeTurn(player);
                 GameTimer.quickPause();
                 displayInfo(player);
@@ -292,7 +294,7 @@ public class Grid {
             System.out.println("How many people are playing(4 players max)");
             playerCount = myScanner.nextInt();
             myScanner.nextLine();
-            if (playerCount > minPlayers && playerCount <= maxPlayers) {
+            if (playerCount >= minPlayers && playerCount <= maxPlayers) {
                 break;
             } else if (playerCount < minPlayers) {
                 System.out.println("You don't have enough players");

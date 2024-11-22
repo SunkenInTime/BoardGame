@@ -30,6 +30,8 @@ public class Player {
         }
         if (position > 16) {
             tempPosition -= 16;
+            ColorPrinter.print("You passed Go! Collet $50", ColorPrinter.MessageType.EVENT);
+            addMoney(50);
         }
 
         position = tempPosition;
