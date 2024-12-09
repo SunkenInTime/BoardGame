@@ -5,8 +5,7 @@ public class IncomeTax extends EventSquare{
         super("Income Tax", "🏦", position);
     }
     @Override
-    Player
-     performEvent(Player player, Grid grid, Scanner myScanner) {
+    Player performEvent(Player player, Grid grid, Scanner myScanner) {
         int totalIncome = 0;
         for(Square[] tileList : grid.locationGrid){
             for(Square tile : tileList){

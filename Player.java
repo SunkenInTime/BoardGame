@@ -5,7 +5,7 @@ public class Player {
     String icon;
     String name;
     int money;
-    int position;
+    private int position;
     Scanner myScanner;
 
     int sentenceLength = 0;
@@ -28,13 +28,13 @@ public class Player {
         if (tempPosition < 1) {
             tempPosition += 16;
         }
-        if (position > 16) {
+        if (tempPosition > 16) {
             tempPosition -= 16;
             ColorPrinter.print("You passed Go! Collet $50", ColorPrinter.MessageType.EVENT);
             addMoney(50);
         }
 
-        position = tempPosition;
+        this.position = tempPosition;
 
     }
 
@@ -44,8 +44,7 @@ public class Player {
     }
 
     void customPlayerPosition() {
-        int newPos = myScanner.nextInt();
-        myScanner.nextLine();
+        int newPos = SafeScanner.scanInt(myScanner);
         boolean isValid = false;
         while (!isValid) {
 
@@ -53,8 +52,7 @@ public class Player {
                 isValid = true;
             } else {
                 ColorPrinter.print("Wrong input, needs to be a number between 1-16.", ColorPrinter.MessageType.WARNING);
-                newPos = myScanner.nextInt();
-                myScanner.nextLine();
+                newPos = SafeScanner.scanInt(myScanner);
             }
 
         }

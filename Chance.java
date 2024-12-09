@@ -18,18 +18,18 @@ public class Chance extends EventSquare{
        
 
         CRYPTO_INVESTMENT(
-            "You invested in a new cryptocurrency that definitely isn't a scam. Roll dice: Even you double your bet, Odd you lose it all.", 
+            "You invested in a new cryptocurrency that definitely isn't a scam. Roll dice: Either you double your bet or you lose it all.", 
             player -> {
                 Random rand = new Random();
                 GameTimer.loading(2);
                 int roll = rand.nextInt(6) + 1;
                 if(roll % 2 == 0) {
                     
-                    ColorPrinter.print("Wow... I'm suprised that worked. Good on ya! You earned $" + player.money * 2);
+                    ColorPrinter.print("Wow... I'm suprised that worked. Good on ya! You earned $" + player.money * 2, ColorPrinter.MessageType.MONEY);
                     player.addMoney(player.money * 2);
                     return player;
                 } else {
-                    ColorPrinter.print("Your money would've been better spent on valorant skins. You lost it all");
+                    ColorPrinter.print("Your money would've been better spent on valorant skins. You lost it all", ColorPrinter.MessageType.WARNING);
                     player.addMoney(-player.money);
                     return player;
                 }
@@ -137,8 +137,12 @@ public class Chance extends EventSquare{
 
     @Override
     Player performEvent(Player player, Grid grid, Scanner myScanner) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'performEvent'");
+        Random random = new Random();
+        GameTimer.loading(2);
+        ChanceCard card = ChanceCard.values()[random.nextInt(ChanceCard.values().length)];
+        ColorPrinter.print(card.getDescription(), ColorPrinter.MessageType.EVENT);
+        return card.executePlayer(player);
+
     }
     
 } 
